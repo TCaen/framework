@@ -2,7 +2,13 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
+const StarRating = ({ rating }) => {
+  const stars = [];
+  for (let i = 0; i < rating; i++) {
+    stars.push(<span key={i} role="img" aria-label="star">⭐</span>);
+  }
+  return <div>{stars}</div>;
+};
 
 const Index = ({films}) => {
   const [filmsState, setFilmsState] = useState(films);
@@ -10,7 +16,7 @@ const Index = ({films}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    handleSortChange(); // Appel à la fonction de tri à chaque changement d'option
+    handleSortChange(); 
   }, [sortOption]);
 
   const handleView = (film) => {
@@ -24,6 +30,9 @@ const Index = ({films}) => {
     console.log("Film supprimé :", filmsState[index]);
   };
 
+  const handleEditFilm = (film) => {
+    navigate(`/edit/${film.titre}`);
+  };
 
   const handleAjouterFilmClick = () => {
     navigate('/AddFilmForm');
@@ -75,10 +84,18 @@ const Index = ({films}) => {
         {filmsState.map((film, index) => (
           <div key={index} className={`p-4 rounded-md ${film.favori ? 'bg-green-200' : 'bg-gray-200'}`}>
             <h2 className="text-lg font-semibold mb-2">{film.titre}</h2>
-            <p>Note: {film.note}</p>
+            <p>
+              <strong>Note:</strong> <StarRating rating={film.note} />
+            </p>
             <p>Réalisateur: {film.realisateur}</p>
             <button onClick={() => handleView(film)} className="bg-blue-500 text-white px-3 mx-1 py-1 rounded-md mt-2">
               Détail
+            </button>
+            <button
+              onClick={() => handleEditFilm(film)}
+              className="bg-yellow-500 text-white px-3 mx-1 py-1 rounded-md mt-2"
+            >
+              Modifier
             </button>
             <button onClick={() => handleDeleteFilm(index)} className="bg-red-500 text-white px-2  mx-1 py-1 rounded-md mt-2">
               Supprimer

@@ -91,7 +91,7 @@ const AddFilmForm = ({ onAddFilm,films }) => {
     </div>
     </div>
     <button onClick={handleIndex} className="bg-blue-500 text-white px-4 py-2 rounded-md">
-      Ajouter un film
+      Retour aux films
     </button>
   </div>
   );

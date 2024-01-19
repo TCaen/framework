@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Index from './components/Index';
 import AddFilmForm from './components/AddFilmForm';
+import EditForm from './components/EditForm';
 import View from './components/View';
 import './styles/output.css';  
 
@@ -62,7 +63,9 @@ const App = () => {
         <Route path="/" element={<Index
          films={films}/>} />
         <Route path="/AddFilmForm" element={<AddFilmForm onAddFilm={handleAddFilm} films={films} />} />
-        <Route path="/view" element={<View />} />
+        <Route path="/view"  element={<View films={films} setFilms={setFilms} />} />
+        <Route path="/edit/:titre" element={<EditForm films={films} setFilms={setFilms} />} />
+
 
       </Routes>
     </Router>
